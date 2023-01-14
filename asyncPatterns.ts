@@ -62,14 +62,14 @@ function promiseThree(): Promise<string> {
 }
 
 function promiseMethod(): void {
-  console.log("GetPromiseValues() called");
+  console.log("promiseMethod() called");
   promiseOne().then((name) => console.log(name));
   promiseTwo().then((name) => console.log(name));
   promiseThree().then((name) => console.log(name));
 }
 
 function promiseAllMethod(): void {
-  console.log("GetPromiseAllValue() called");
+  console.log("promiseAllMethod() called");
   Promise.all([promiseOne(), promiseTwo(), promiseThree()]).then((res) => {
     console.log(res);
   });
@@ -109,8 +109,8 @@ function getPromiseAllMethod(): void {
 // With async/await it's much simpler -- However the return type must be a Promise which can
 // cause issues with refactoring existing code
 
-async function GetPromiseValuesAsync(): Promise<void> {
-  console.log("GetPromiseValuesAsync() called");
+async function getPromiseValuesAsync(): Promise<void> {
+  console.log("getPromiseValuesAsync() called");
   const name1 = await promiseOne();
   // Do something with the name
   console.log(name1);
@@ -138,5 +138,5 @@ async function GetPromiseValuesAsync(): Promise<void> {
   getPromiseAllMethod();
 
   // ** async/await method **:
-  GetPromiseValuesAsync();
+  getPromiseValuesAsync();
 })();
