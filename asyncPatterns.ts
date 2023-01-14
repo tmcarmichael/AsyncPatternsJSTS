@@ -41,6 +41,41 @@ function callbackMethod(): void {
   funcThree((name) => console.log(name));
 }
 
+// But what if you wanted to use the returned values from the callbacks before the main thread continues to execute other code? MDN has a good example of this here: https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Introducing#callbacks
+
+function doStep1(init: number, callback: any): void {
+  const result = init + 1;
+  callback(result);
+}
+
+function doStep2(init: number, callback: any): void {
+  const result = init + 2;
+  callback(result);
+}
+
+function doStep3(init: number, callback: any): void {
+  const result = init + 3;
+  callback(result);
+}
+
+function callbackMethodChained(): void {
+  console.log("callbackMethodChained() called");
+  let intSum = 0;
+  doStep1(0, (result1: number) => {
+    // Optionally do something with the result
+    intSum += result1;
+    doStep2(result1, (result2: number) => {
+      // Optionally do something with the result
+      intSum += result2;
+      doStep3(result2, (result3: number) => {
+        // Optionally do something with the result
+        intSum += result3;
+      });
+    });
+  });
+  console.log(`result: ${intSum}`);
+}
+
 // Second let's take a look at using promises. Promises are also common in old code. They're a bit easier to read than callbacks, but still verbose and error prone.
 
 function promiseOne(): Promise<string> {
@@ -126,6 +161,7 @@ async function getPromiseValuesAsync(): Promise<void> {
 (() => {
   // ** callback method **:
   callbackMethod();
+  callbackMethodChained();
 
   // ** promise method **:
   promiseMethod();
