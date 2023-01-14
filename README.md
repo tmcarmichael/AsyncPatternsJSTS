@@ -10,7 +10,7 @@ In chronological order from their release/use:
   2. Promises
   3. Async/Await (Promises under the hood)
 
-Instructions:
+### Instructions:
 - Uncomment/comment methods in the IIFE at the bottom.
 - Run instructions with TypeScript:
   - `tsc asyncPatterns.ts`
