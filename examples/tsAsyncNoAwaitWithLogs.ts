@@ -1,8 +1,8 @@
 /**
-    Demonstrate main thread moving out of execution context without 'async'. Potentially use callbacks in sync legancy code? Logs:
+    Demonstrate main thread moving out of execution context without 'await'. Potentially use callbacks in sync legancy code? Logs:
 
-    Result: 
-    
+    Result:
+
     [LOG]: "Begin code execution"  <-- Code execution starts
     [LOG]: "moduleOneSyncFunc() start"
     [LOG]: "moduleOneSyncFunc() end"
@@ -23,21 +23,21 @@ let networkCallResultTwo: Promise<string>;
 let networkCallResultThree: Promise<string>;
 
 // Network call 1
-function funcOne(): Promise<string> {
+function networkFuncOne(): Promise<string> {
   return fetch("https://pokeapi.co/api/v2/ability/1")
     .then((response) => response.json())
     .then((data) => data.name);
 }
 
 // Network call 2
-function funcTwo(): Promise<string> {
+function networkFuncTwo(): Promise<string> {
   return fetch("https://pokeapi.co/api/v2/ability/2")
     .then((response) => response.json())
     .then((data) => data.name);
 }
 
 // Network call 3
-function funcThree(): Promise<string> {
+function networkFuncThree(): Promise<string> {
   return fetch("https://pokeapi.co/api/v2/ability/3")
     .then((response) => response.json())
     .then((data) => data.name);
@@ -46,7 +46,7 @@ function funcThree(): Promise<string> {
 const moduleOneSyncFunc = () => {
   console.log("moduleOneSyncFunc() start");
 
-  // For time reference 
+  // For time reference
   const promiseOne = new Promise((resolve) =>
     resolve(setTimeout(() => console.log("promise 300ms"), 500))
   );
@@ -58,9 +58,9 @@ const moduleOneSyncFunc = () => {
   );
 
   // Set results of network calls
-  networkCallResultOne = funcOne();
-  networkCallResultTwo = funcTwo();
-  networkCallResultThree = funcThree();
+  networkCallResultOne = networkFuncOne();
+  networkCallResultTwo = networkFuncTwo();
+  networkCallResultThree = networkFuncThree();
 
   console.log("moduleOneSyncFunc() end");
 };
